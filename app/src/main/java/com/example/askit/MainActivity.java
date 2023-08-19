@@ -79,6 +79,22 @@ ArrayList<modleClass> messegelist=new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        JSONObject job2=new JSONObject();
+        try {
+            job2.put("role", "system");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            job2.put("content", "you are my personal assistant and your name is jenny and you are developed by Mr. Achal Jaiswal");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        jarry.put(job2);
+
         menUBtn=findViewById(R.id.menuBtn);
         txt = findViewById(R.id.txtWelcome);
         txt.animateText("Hello "+ FirebaseAuth.getInstance().getCurrentUser().getDisplayName() +", How can I help you?");
@@ -198,7 +214,7 @@ recyclerView.smoothScrollToPosition(messegeadapter.getItemCount());
 
     private void getResponse(String query) {
 
-
+String Your_Api_Key="";
         messegelist.add(new modleClass("Typing...",modleClass.sentByBot));
 
         String url = "https://api.openai.com/v1/chat/completions";
@@ -211,12 +227,7 @@ JSONObject job=new JSONObject();
             job.put("role", "user");
             job.put("content", query);
 
-            JSONObject job2=new JSONObject();
-            job2.put("role", "system");
-            job2.put("content", "you are my personal assistant and your name is jenny");
 
-
-            jarry.put(job2);
             jarry.put(job);
 
             jsonObject.put("messages",jarry);
@@ -229,7 +240,7 @@ JSONObject job=new JSONObject();
 
         RequestBody body= RequestBody.create(jsonObject.toString(), JSON);
         okhttp3.Request request=new okhttp3.Request.Builder()
-                .url(url).header("Authorization","Bearer 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").post(body).build();
+                .url(url).header("Authorization","Bearer "+Your_Api_Key).post(body).build();
 
           client.newCall(request).enqueue(new Callback() {
               @Override
