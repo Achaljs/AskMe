@@ -58,6 +58,16 @@ Before you start, make sure you have the following:
 
 6. Continue the conversation by sending additional messages.
 
+## Limitations of ChatGPT API
+
+1. It's important to note that while ChatGPT, powered by OpenAI, is incredibly powerful, it does have certain limitations:
+
+2. Lack of Context: ChatGPT doesn't have inherent memory of past requests, meaning you might need to provide more context within the conversation.
+
+3. Generating Plausible-sounding but Incorrect Answers: The model might generate responses that sound plausible but are factually incorrect or nonsensical.
+
+4. Sensitive Content: The model might sometimes produce inappropriate or offensive content. The app should have mechanisms to filter and prevent such outputs.
+
 ## Configuration
 
 Customize the app to your liking:
