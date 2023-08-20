@@ -19,6 +19,11 @@ public class splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+
+
+
+
+
                 FirebaseUser currentUser= FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser==null){
 

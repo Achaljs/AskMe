@@ -2,9 +2,15 @@ package com.example.askit;
 
 import static com.example.askit.signUp.aname;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +42,10 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.remote.WatchChange;
 import com.nitish.typewriterview.TypeWriterView;
+import com.thecode.aestheticdialogs.AestheticDialog;
+import com.thecode.aestheticdialogs.DialogAnimation;
+import com.thecode.aestheticdialogs.DialogStyle;
+import com.thecode.aestheticdialogs.DialogType;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +54,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -56,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
     TypeWriterView txt;
     ImageView send;
     EditText edtext;
+
+    public static TextToSpeech ts;
 
     ImageButton menUBtn;
 RecyclerView recyclerView;
@@ -78,7 +91,7 @@ ArrayList<modleClass> messegelist=new ArrayList<>();
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         JSONObject job2=new JSONObject();
         try {
@@ -87,7 +100,7 @@ ArrayList<modleClass> messegelist=new ArrayList<>();
             throw new RuntimeException(e);
         }
         try {
-            job2.put("content", "you are my personal assistant and your name is jenny and you are developed by Mr. Achal Jaiswal");
+            job2.put("content", "you are my personal assistant and your name is jenny and you are developed by Mr.Achal Jaiswal and "+firebaseUser.getDisplayName()+" is my name");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -99,17 +112,33 @@ ArrayList<modleClass> messegelist=new ArrayList<>();
         txt = findViewById(R.id.txtWelcome);
         txt.animateText("Hello "+ FirebaseAuth.getInstance().getCurrentUser().getDisplayName() +", How can I help you?");
         txt.setCharacterDelay(100);
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.sample);
+        mp.start();
+
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+mp.stop();
+            }
+        },4000);
+
+
         txt.setVisibility(View.VISIBLE);
         send=findViewById(R.id.send_btn);
         edtext=findViewById(R.id.message_edit_text);
         recyclerView=findViewById(R.id.chat_rv);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
 messegeadapter=new messegeAdapter(MainActivity.this,messegelist);
 
 recyclerView.setAdapter(messegeadapter);
 
         menUBtn.setOnClickListener(v-> loadMenu());
+
+        textToSpeech();
+
+
 
 send.setOnClickListener(new View.OnClickListener() {
     @Override
@@ -307,6 +336,10 @@ JSONObject job=new JSONObject();
 
    }
    void fetchFromFireStore() {
+       ProgressDialog loadingBar=new ProgressDialog(this);
+       loadingBar.setMessage("Please wait....");
+       loadingBar.setCanceledOnTouchOutside(false);
+       loadingBar.show();
        FirebaseFirestore documentReference =FirebaseFirestore.getInstance();
        FirebaseUser firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
 documentReference.collection("messeges").document(firebaseUser.getUid()).collection(firebaseUser.getDisplayName()).orderBy("timestamp", Query.Direction.ASCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -315,6 +348,7 @@ documentReference.collection("messeges").document(firebaseUser.getUid()).collect
         // after getting the data we are calling on success method
         // and inside this method we are checking if the received
         // query snapshot is empty or not.
+        loadingBar.dismiss();
         if (!queryDocumentSnapshots.isEmpty()) {
             // if the snapshot is not empty we are
             // hiding our progress bar and adding
@@ -341,6 +375,17 @@ documentReference.collection("messeges").document(firebaseUser.getUid()).collect
 
         } else {
             // if the snapshot is empty we are displaying a toast message.
+            new AestheticDialog.Builder(MainActivity.this, DialogStyle.TOASTER, DialogType.WARNING)
+                    .setTitle("Error!")
+                    .setMessage("Sorry,No History Found!")
+                    .setCancelable(true)
+                    .setDarkMode(false)
+
+                    .setGravity(Gravity.TOP)
+                    .setAnimation(DialogAnimation.SLIDE_RIGHT)
+
+                    .show();
+
             txt.setVisibility(View.VISIBLE);
         }
     }
@@ -355,6 +400,22 @@ documentReference.collection("messeges").document(firebaseUser.getUid()).collect
 });
 
 
+
+   }
+
+   public void textToSpeech(){
+
+        ts=new TextToSpeech(MainActivity.this, new TextToSpeech.OnInitListener() {
+           @Override
+           public void onInit(int i) {
+               if(i!=TextToSpeech.ERROR){
+
+                   ts.setLanguage(new Locale("en","IN"));
+                   ts.setSpeechRate(1.0f);
+                   ts.setPitch(1.1f);
+               }
+           }
+       });
 
    }
 

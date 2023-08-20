@@ -19,11 +19,12 @@
         app:layout_constraintTop_toTopOf="parent"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UseCompoundDrawables">
@@ -32,30 +33,32 @@
                 android:id="@+id/imageView"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_alignParentStart="true"
                 android:src="@drawable/chatgptlogo"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
-                android:textStyle="bold"
+                android:layout_toEndOf="@+id/imageView"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="38sp" />
+                android:textSize="38sp"
+                android:textStyle="bold" />
 
 
             <ImageButton
                 android:id="@+id/menuBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/baseline_menu_24"
-                android:layout_marginStart="150dp"
-                android:background="@color/background"/>
-        </LinearLayout>
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@color/background"
+                android:contentDescription="menuButton"
+                android:src="@drawable/baseline_menu_24" />
+        </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -69,7 +72,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleLayout" />
-    />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_rv"

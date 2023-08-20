@@ -22,9 +22,23 @@
             android:text=""
             android:textColor="@color/white"
             android:textSize="18sp"
+android:layout_weight="5"
             android:textIsSelectable="true"/>
 
+        <ImageButton
+            android:id="@+id/mic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_mic_24"
+            android:backgroundTint="#002B5B"
+            android:layout_gravity="end|bottom"
+android:layout_weight="1"
+            android:contentDescription="speak"
+            />
+
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/right_chat_view"
