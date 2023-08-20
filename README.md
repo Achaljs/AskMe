@@ -33,12 +33,12 @@ Before you start, make sure you have the following:
 1. Clone this repository to your local machine:
 
     ```bash
-    git clone https://github.com/yourusername/askme-assistant-android.git
+    git clone https://github.com/Achaljs/AskIt.git
     ```
 
 2. Open the project in Android Studio.
 
-3. Replace `YOUR_OPENAI_API_KEY` in the code with your actual OpenAI API key.
+3. Replace `your_API_Key` in the code with your actual OpenAI API key.
 
 4. Configure Firebase in your Android project based on the Firebase documentation.
 
