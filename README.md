@@ -1,4 +1,4 @@
-# AskMe - Your Personal Assistant Chat Android Application
+# AskMe - Your Personal Assistant Chat Android Application 💬🔒🔊
 
 Welcome to AskMe, your AI-powered personal assistant! The AskMe Android Application provides you with an intuitive platform to interact with Jenny, your virtual assistant. Experience the synergy of user authentication, natural language processing, text-to-speech, and personalized conversations all in one app.
 
