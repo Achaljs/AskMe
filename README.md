@@ -54,7 +54,7 @@ Before you start, make sure you have the following:
 
 4. Tap the send button to transmit your message to Jenny.
 
-5. View Jenny's response in the chat area and listen to it as spoken words using the text-to-speech feature.
+5. View Jenny's response in the chat area and listen to it as spoken words using the text-to-speech feature by tapping the Mic button.
 
 6. Continue the conversation by sending additional messages.
 
