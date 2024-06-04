@@ -6,14 +6,14 @@ Welcome to AskMe, your AI-powered personal assistant! The AskMe Android Applicat
 
 <p align="center">
   <img src="screenshots/1.jpg" alt="Home" width="30%">
-  <img src="screenshots/2.jpg" alt="Search" width="30%">
-    <img src="screenshots/3.jpg" alt="Apply" width="30%">
+  <img src="screenshots/2.jpg" alt="options" width="30%">
+    <img src="screenshots/3.jpg" alt="Chat" width="30%">
 </p>
 
 <p align="center">
-  <img src="screenshots/4" alt="Categories" width="30%">
-  <img src="screenshots/5" alt="Favorites" width="30%">
-    <img src="screenshots/6" alt="Favorites" width="30%">
+  <img src="screenshots/4" alt="Sign In" width="30%">
+  <img src="screenshots/5" alt="Sign UP" width="30%">
+    <img src="screenshots/6" alt="Forgot passward" width="30%">
 </p>
 
 ## Features
